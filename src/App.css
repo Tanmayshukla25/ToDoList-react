@@ -53,6 +53,21 @@
     transform: rotate(360deg);
   }
 }
+@media screen and (min-width:320px) and (max-width:570px){
+
+  .inputbox{
+    text-align: center;
+   background-color:rgb(114, 134, 135);
+   color: white;
+   padding: 10px ;
+   margin-right: 40px;
+   width: 290px;
+   border-radius: 10px;
+   font-size: 20px;
+   margin-bottom: 10px;
+  }
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
