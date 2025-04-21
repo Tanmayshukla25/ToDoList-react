@@ -48,9 +48,13 @@ function Todolist() {
             <ul>
                 {tasks.map(task => (
                     <li key={task.id} className='inputbox'>
-                        <span>{task.task}</span>
-                        <MdDelete onClick={(e) => DeleteTasks(e, task.id)} />
-                        <MdOutlineEdit onClick={(e) => EditTasks(e, task.id)} />
+                      <div id='btnparent'>
+                      <span id='listName'>{task.task}</span>
+                       <div>
+                       <MdDelete onClick={(e) => DeleteTasks(e, task.id)} />
+                       <MdOutlineEdit onClick={(e) => EditTasks(e, task.id)} />
+                       </div>
+                      </div>
                     </li>
                 ))}
             </ul>
