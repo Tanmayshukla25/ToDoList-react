@@ -53,20 +53,7 @@
     transform: rotate(360deg);
   }
 }
-@media screen and (min-width:320px) and (max-width:570px){
 
-  .inputbox{
-    text-align: center;
-   background-color:rgb(114, 134, 135);
-   color: white;
-   padding: 8px ;
-   margin-right: 20px;
-   width: 290px;
-   border-radius: 10px;
-   font-size: 18px;
-   margin-bottom: 10px;
-  }
-}
 
 
 @media (prefers-reduced-motion: no-preference) {
