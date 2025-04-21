@@ -1,81 +1,61 @@
-import { useState } from 'react'
-import { MdDelete } from "react-icons/md";
-import { MdOutlineEdit } from "react-icons/md";
+import { useState } from 'react';
+import { MdDelete, MdOutlineEdit } from "react-icons/md";
 
 function Todolist() {
-
     const [input, setInput] = useState("");
     const [tasks, setTasks] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [EditId, setEditId] = useState(null);
+    const [editId, setEditId] = useState(null);
 
     function AddTask() {
+        const value = input.trim();
+        if (value === "") return;
+
         if (isEditing) {
-
-            setTasks(tasks.map((obj) => {
-
-                return obj.id === EditId ? { ...obj, task: input } : obj
-            }))
-        }
-        else {
-
-            const obj = {
+            setTasks(tasks.map(task =>
+                task.id === editId ? { ...task, task: value } : task
+            ));
+            setIsEditing(false);
+            setEditId(null);
+        } else {
+            const newTask = {
                 id: Date.now(),
-                task: input
-
-            }
-            setTasks([...tasks, obj])
-            setIsEditing(false)
-            setEditId(null)
+                task: value
+            };
+            setTasks([...tasks, newTask]);
         }
-        setInput("")
+
+        setInput("");
     }
-    console.log(tasks);
 
     function DeleteTasks(e, id) {
-        const DeleteTasksIndex = tasks.findIndex((obj) => {
-            return obj.id === id;
-        });
-        setTasks(
-            tasks.filter((obj, index) => {
-                return index !== DeleteTasksIndex;
-            })
-        )
-
+        setTasks(tasks.filter(task => task.id !== id));
     }
-    function EditTasks(e, id) {
-        const Edit = tasks.find((task) => {
-            return task.id === id;
-        });
-        setInput(Edit.task);
-        setIsEditing(true);
-        setEditId(id)
 
+    function EditTasks(e, id) {
+        const taskToEdit = tasks.find(task => task.id === id);
+        setInput(taskToEdit.task);
+        setIsEditing(true);
+        setEditId(id);
     }
 
     return (
         <>
             <h1>ToDoList</h1>
-            <input type="text" id='inputbtn' onChange={(e) => setInput(e.target.value)} value={input} placeholder="Enter the task" />
-            <button onClick={AddTask}>{!isEditing ? "Add task" : "Edit task"}</button>
-            <ul type="none">
-                {tasks.map((obj, index) => {
-                    return (
-                        <li key={index} className='inputbox'>
-                            <span>{obj.task}</span>
-                            <MdDelete onClick={(e) => DeleteTasks(e, obj.id)} />
-                            <MdOutlineEdit onClick={(e) => EditTasks(e, obj.id)} />
-                       
-                        </li>
-                    );
-                })}
+            <input type="text" onChange={(e) => setInput(e.target.value)} value={input} id='inputbtn' placeholder="Enter the task"
+            />
+            <button onClick={AddTask}> {!isEditing ? "Add task" : "Edit task"}</button>
+            <ul>
+                {tasks.map(task => (
+                    <li key={task.id} className='inputbox'>
+                        <span>{task.task}</span>
+                        <MdDelete onClick={(e) => DeleteTasks(e, task.id)} />
+                        <MdOutlineEdit onClick={(e) => EditTasks(e, task.id)} />
+                    </li>
+                ))}
             </ul>
-
-
-
-
         </>
-    )
-
+    );
 }
-export default Todolist
+
+export default Todolist;
